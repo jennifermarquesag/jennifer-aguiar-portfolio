@@ -289,3 +289,16 @@ body {
     font-size: 14px;
   }
 }
+.card video {
+  width: 520px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+  .card video {
+    width: 100%;
+    height: auto;
+  }
+}
