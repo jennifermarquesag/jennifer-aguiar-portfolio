@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Animação | Portfólio</title>
+  <link rel="stylesheet" href="animacao.css">
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="logo">Portfolio</a>
+</header>
+
+<!-- PROJETO 1 -->
+<section class="project light">
+  <div class="content">
+    <div class="video">
+      <video 
+  src="Making of curta.mp4"
+  controls
+  preload="metadata"
+  poster="thumb1.png">
+</video>
+    </div>
+
+    <div class="text">
+      <h1 class="section-title">Animação</h1>
+      <h2>Curta-metragem “O Artista”</h2>
+      <p>
+        A animação é fundamental para dar vida a personagens e cenários,
+        envolvendo princípios como walk cycles, poses-chave e rigging.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETO 2 -->
+<section class="project dark">
+  <div class="content reverse">
+    <div class="text">
+      <h2>Pantomima</h2>
+      <p>
+        Estudo corporal aplicado à animação, explorando expressão,
+        ritmo e narrativa visual.
+      </p>
+    </div>
+
+    <div class="video">
+      <video muted loop preload="metadata" poster="capa2.jpg">
+        <source src="pantomina.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETO 3 -->
+<section class="project light">
+  <div class="content">
+    <div class="video">
+      <video muted loop preload="metadata" poster="capa3.jpg">
+        <source src="animacao2d.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="text">
+      <h2>Animação 2D</h2>
+      <p>
+        Sketch animação 2D.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll("video").forEach(video => {
+    video.addEventListener("mouseenter", () => video.play());
+    video.addEventListener("mouseleave", () => video.pause());
+  });
+</script>
+
+</body>
+</html>
