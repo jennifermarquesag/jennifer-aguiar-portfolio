@@ -4,16 +4,267 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfólio – Jennifer</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
-</head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: black;
+      color: white;
+      font-weight: 400;
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: white;
+      color: black;
+      min-height: 100vh;
+      padding: 60px;
+      position: relative;
+      opacity: 0;
+      animation: fadeInUp 0.9s ease forwards;
+    }
+
+    .hero-title {
+      font-size: 72px;
+      color: #e63946;
+      margin-top: 220px;
+      font-weight: 400;
+      animation: fadeInUp 1s 0.2s ease both;
+    }
+
+    .mini-title {
+      font-size: 14px;
+    }
+
+    .date {
+      position: absolute;
+      bottom: 60px;
+      font-size: 14px;
+    }
+
+    .hero-photo {
+      position: absolute;
+      right: 60px;
+      top: 40px;
+      width: 700px;
+      border-radius: 24px;
+      animation: fadeIn 1.2s 0.3s ease both;
+    }
+
+    .name-badge {
+      position: absolute;
+      right: 560px;
+      bottom: 160px;
+      background: black;
+      color: white;
+      padding: 14px 26px;
+      border-radius: 30px;
+      font-size: 14px;
+      animation: fadeIn 1s 0.6s ease both;
+    }
+
+    .name-badge .arrow {
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 14px solid black;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section {
+      padding: 160px 0;
+      position: relative;
+    }
+
+    .dark { background: black; }
+    .white-bg { background: white; }
+
+    /* ─── TITLES ─── */
+    .side-title {
+      font-size: 64px;
+      position: absolute;
+      left: 60px;
+      top: 80px;
+      font-weight: 400;
+    }
+
+    .side-title.red { color: #e63946; }
+
+    /* ─── CARDS ─── */
+    .cards {
+      margin-left: auto;
+      margin-right: 80px;
+      width: 1010px;
+      display: flex;
+      flex-direction: column;
+      gap: 100px;
+    }
+
+    .card {
+      border-radius: 24px;
+      padding: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card.white { background: white; color: black; }
+    .card.red   { background: #e63946; color: white; }
+
+    .card img {
+      width: 520px;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    .card video {
+      width: 520px;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    .card .text { width: 360px; }
+
+    .card h3 {
+      font-size: 32px;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    .card p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ─── CARD LINKS ─── */
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .card-link:hover .card {
+      transform: scale(1.01);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+    }
+
+    /* ─── CONTATO ─── */
+    .contato { padding-left: 60px; }
+
+    .contato-titulo {
+      font-size: 64px;
+      color: #e63946;
+      margin-bottom: 60px;
+      font-weight: 400;
+    }
+
+    .contato-info p { margin-bottom: 30px; }
+
+    .icones {
+      margin-top: 16px;
+      display: flex;
+      gap: 16px;
+    }
+
+    .icones a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .icones a:hover { background: #e63946; border-color: #e63946; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── KEYFRAMES ─── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      .section { padding: 100px 20px; }
+
+      .hero { padding: 40px 20px; min-height: auto; }
+      .mini-title { font-size: 12px; }
+      .hero-title { font-size: 42px; margin-top: 40px; }
+
+      .date { position: static; display: block; margin-top: 20px; }
+
+      .hero-photo { position: static; width: 100%; margin-top: 40px; }
+
+      .name-badge { position: relative; right: auto; bottom: auto; margin-top: 16px; width: fit-content; }
+      .name-badge .arrow { display: none; }
+
+      .side-title { position: static; font-size: 42px; margin-bottom: 40px; }
+
+      .cards { width: 100%; margin: 0; gap: 60px; }
+
+      .card { flex-direction: column; padding: 32px 24px; }
+      .card .text { width: 100%; margin-bottom: 24px; }
+      .card img,
+      .card video { width: 100%; height: auto; }
+      .card h3 { font-size: 24px; }
+      .card p  { font-size: 15px; }
+
+      .contato { padding: 80px 20px; }
+      .contato-titulo { font-size: 42px; }
+      .icones a { width: 44px; height: 44px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .hero, .hero-title, .hero-photo, .name-badge {
+        transition: none;
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
 
 <body>
 
@@ -37,35 +288,28 @@
   </div>
 </section>
 
+
 <!-- DESIGN 3D -->
 <section class="section dark">
-  <h2 class="side-title">Design 3D</h2>
+  <h2 class="side-title reveal">Design 3D</h2>
 
   <div class="cards">
 
-   <a href="animacao.html" class="card-link">
-  <div class="card white">
-    <div class="text">
-      <h3>Animação</h3>
-      <p>
-        Foco nos princípios da animação, incluindo walk cycles,
-        poses chaves e refino de movimentos. Experiência sólida
-        em rigging (IK/FK, pintura de peso e pantomima corporal).
-      </p>
-    </div>
+    <a href="animacao.html" class="card-link reveal">
+      <div class="card white">
+        <div class="text">
+          <h3>Animação</h3>
+          <p>
+            Foco nos princípios da animação, incluindo walk cycles,
+            poses chaves e refino de movimentos. Experiência sólida
+            em rigging (IK/FK, pintura de peso e pantomima corporal).
+          </p>
+        </div>
+        <video src="animacao.mp4" autoplay loop muted playsinline></video>
+      </div>
+    </a>
 
-    <video 
-      src="animacao.mp4"
-      autoplay 
-      loop 
-      muted 
-      playsinline>
-    </video>
-  </div>
-</a>
-
-
-    <div class="card white">
+    <div class="card white reveal">
       <div class="text">
         <h3>Modelagem</h3>
         <p>
@@ -73,49 +317,22 @@
           extensivo do ZBrush e estudos detalhados de anatomia.
         </p>
       </div>
-      <video 
-  src="modelagem.mp4"
-  autoplay 
-  loop 
-  muted 
-  playsinline>
-</video>
-
+      <video src="modelagem.mp4" autoplay loop muted playsinline></video>
     </div>
 
   </div>
 </section>
 
-<!-- ILUSTRAÇÃO & MOTION -->
+
+<!-- MOTION -->
 <section class="section white-bg">
-  <h2 class="side-title red">
-    Design<br>Digital e<br>Motion
+  <h2 class="side-title red reveal">
+    Motion<br>Graphics
   </h2>
 
   <div class="cards">
 
-    <a href="A Rainha Dourada.pdf" target="_blank" class="card-link">
-  <div class="card red">
-    <div class="text">
-      <h3>Editorial</h3>
-      <p>
-        Projetos focados em narrativa visual, composição, hierarquia tipográfica
-        e construção de identidade. Inclui trabalhos autorais desenvolvidos do
-        conceito à finalização, envolvendo escrita, diagramação e organização visual.
-      </p>
-    </div>
-
-    <video 
-      src="ilustracao.mp4"
-      autoplay 
-      loop 
-      muted 
-      playsinline>
-    </video>
-  </div>
-</a>
-
-    <div class="card red">
+    <div class="card red reveal">
       <div class="text">
         <h3>Motion graphics</h3>
         <p>
@@ -123,68 +340,51 @@
           e animações avançadas com shape layers.
         </p>
       </div>
-      <video 
-  src="motion.mp4"
-  autoplay 
-  loop 
-  muted 
-  playsinline>
-</video>
-
+      <video src="motion.mp4" autoplay loop muted playsinline></video>
     </div>
 
   </div>
 </section>
 
+
 <!-- RENDER -->
 <section class="section dark">
-  <h2 class="side-title">Projetos de<br>Renderização</h2>
+  <h2 class="side-title reveal">Projetos de<br>Renderização</h2>
 
   <div class="cards">
 
-    <div class="card white">
-      <div class="text">
-        <h3>Render e Pós</h3>
-        <p>
-          Maya, V-Ray, Substance Painter e pós-produção
-          no After Effects e Photoshop.
-        </p>
+    <a href="render.html" class="card-link reveal">
+      <div class="card white">
+        <div class="text">
+          <h3>Render e Pós</h3>
+          <p>
+            Maya, V-Ray, Substance Painter e pós-produção
+            no After Effects e Photoshop.
+          </p>
+        </div>
+        <video src="render.mp4" autoplay loop muted playsinline></video>
       </div>
-      <video 
-  src="render.mp4"
-  autoplay 
-  loop 
-  muted 
-  playsinline>
-</video>
+    </a>
 
-    </div>
-
-    <div class="card white">
+    <div class="card white reveal">
       <div class="text">
         <h3>Simulação VFX</h3>
         <p>
           Técnicas de simulação e pipeline de efeitos visuais no Maya.
         </p>
       </div>
-      <video 
-  src="simulacao.mp4"
-  autoplay 
-  loop 
-  muted 
-  playsinline>
-</video>
-
+      <video src="simulacao.mp4" autoplay loop muted playsinline></video>
     </div>
 
   </div>
 </section>
 
+
 <!-- CONTATO -->
 <section class="section dark contato">
-  <h2 class="contato-titulo">Contato</h2>
+  <h2 class="contato-titulo reveal">Contato</h2>
 
-  <div class="contato-info">
+  <div class="contato-info reveal">
     <p><strong>Telefone</strong><br>+55 (85) 98993-6808</p>
     <p><strong>E-mail</strong><br>jennifermarquesag@gmail.com</p>
 
@@ -197,6 +397,21 @@
     </div>
   </div>
 </section>
+
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>

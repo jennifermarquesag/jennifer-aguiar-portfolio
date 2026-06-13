@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Render – Lilo & Stitch | Jennifer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: black;
+      color: white;
+      font-weight: 400;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 28px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+    }
+
+    .nav-back {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-back:hover { opacity: 1; }
+
+    .nav-back svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .nav-logo {
+      font-size: 14px;
+      color: white;
+      text-decoration: none;
+    }
+
+    /* ─── HERO ─── */
+    .project-hero {
+      min-height: 100vh;
+      background: white;
+      color: black;
+      padding: 160px 60px 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      animation: fadeIn 0.8s ease both;
+    }
+
+    .project-tag {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #e63946;
+      margin-bottom: 20px;
+    }
+
+    .project-hero h1 {
+      font-size: 80px;
+      font-weight: 400;
+      line-height: 1;
+      max-width: 700px;
+    }
+
+    .project-hero h1 em {
+      color: #e63946;
+      font-style: normal;
+    }
+
+    .hero-meta {
+      margin-top: 48px;
+      display: flex;
+      gap: 80px;
+    }
+
+    .meta-item strong {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: #999;
+    }
+
+    .meta-item span { font-size: 15px; }
+
+    /* ─── PIPELINE ─── */
+    .pipeline {
+      padding: 120px 60px;
+      background: black;
+    }
+
+    .section-label {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #e63946;
+      margin-bottom: 60px;
+    }
+
+    /* ─── STEPS ─── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 120px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .step.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .step.reverse { direction: rtl; }
+    .step.reverse > * { direction: ltr; }
+
+    .step-image {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      border-radius: 16px;
+      background: #111;
+      display: block;
+    }
+
+    /* placeholder quando imagem não carrega */
+    .step-image-wrap {
+      position: relative;
+    }
+
+    .step-image-wrap::after {
+      content: attr(data-label);
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #444;
+      border-radius: 16px;
+      border: 1px dashed #222;
+      pointer-events: none;
+    }
+
+    .step-info { }
+
+    .step-number {
+      font-size: 80px;
+      font-weight: 400;
+      color: #1a1a1a;
+      line-height: 1;
+      margin-bottom: 16px;
+      user-select: none;
+    }
+
+    .step-title {
+      font-size: 36px;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .step-title span { color: #e63946; }
+
+    .step-desc {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #aaa;
+      max-width: 400px;
+    }
+
+    .step-tools {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tool-tag {
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid #333;
+      color: #777;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── FINAL ─── */
+    .final-section {
+      padding: 120px 60px;
+      background: #0a0a0a;
+    }
+
+    .final-section .section-label { margin-bottom: 40px; }
+
+    .final-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .final-grid img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      border-radius: 16px;
+      background: #111;
+      display: block;
+      border: 1px dashed #1f1f1f;
+      transition: transform 0.3s ease;
+    }
+
+    .final-grid img:hover { transform: scale(1.02); }
+
+    .final-grid img:first-child {
+      grid-column: 1 / -1;
+      aspect-ratio: 16/7;
+    }
+
+    /* ─── FOOTER CTA ─── */
+    .footer-cta {
+      padding: 100px 60px;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    .footer-cta h2 {
+      font-size: 48px;
+      font-weight: 400;
+    }
+
+    .footer-cta h2 em { color: #e63946; font-style: normal; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 36px;
+      border-radius: 50px;
+      border: 1px solid #333;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .back-btn:hover { background: #e63946; border-color: #e63946; }
+
+    /* ─── KEYFRAMES ─── */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+
+      .project-hero { padding: 120px 24px 80px; }
+      .project-hero h1 { font-size: 48px; }
+      .hero-meta { flex-direction: column; gap: 24px; }
+
+      .pipeline { padding: 80px 24px; }
+      .final-section { padding: 80px 24px; }
+      .footer-cta { padding: 60px 24px; flex-direction: column; gap: 40px; align-items: flex-start; }
+      .footer-cta h2 { font-size: 36px; }
+
+      .step {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .step.reverse { direction: ltr; }
+
+      .step-number { font-size: 56px; }
+      .step-title { font-size: 28px; }
+
+      .final-grid { grid-template-columns: 1fr; }
+      .final-grid img:first-child { grid-column: 1; aspect-ratio: 16/10; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .step { transition: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Voltar
+  </a>
+  <a href="index.html" class="nav-logo">Jennifer</a>
+</nav>
+
+
+<!-- HERO -->
+<section class="project-hero">
+  <p class="project-tag">Render &amp; Pós-Produção · Maya · V-Ray · Substance Painter</p>
+  <h1>Lilo <em>&</em><br>Stitch</h1>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <strong>Categoria</strong>
+      <span>Render de cena</span>
+    </div>
+    <div class="meta-item">
+      <strong>Softwares</strong>
+      <span>Maya, V-Ray, Substance Painter, Photoshop</span>
+    </div>
+    <div class="meta-item">
+      <strong>Etapas</strong>
+      <span>Referência → Modelagem → Textura → Pós</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- PIPELINE -->
+<section class="pipeline">
+  <p class="section-label">Pipeline do projeto</p>
+
+  <div class="steps">
+
+    <!-- STEP 1 – Referência -->
+    <div class="step">
+      <div class="step-image-wrap" data-label="Referência">
+        <img class="step-image" src="ref-cenario.png" alt="Imagem de referência – Lilo & Stitch">
+      </div>
+      <div class="step-info">
+        <p class="step-number">01</p>
+        <h2 class="step-title">Imagem de <span>referência</span></h2>
+        <p class="step-desc">
+          Estudo da cena original de Lilo &amp; Stitch para levantar proporções,
+          paleta de cor, iluminação e composição. A análise das referências define
+          o tom e a fidelidade estética do projeto final.
+        </p>
+        <div class="step-tools">
+          <span class="tool-tag">Análise de cena</span>
+          <span class="tool-tag">Composição</span>
+          <span class="tool-tag">Paleta de cores</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 – Modelagem -->
+    <div class="step reverse">
+      <div class="step-image-wrap" data-label="Cena modelada">
+        <img class="step-image" src="CENARIO.png" alt="Modelagem 3D da cena">
+      </div>
+      <div class="step-info">
+        <p class="step-number">02</p>
+        <h2 class="step-title"><span>Modelagem</span> 3D</h2>
+        <p class="step-desc">
+          Construção dos objetos e cenário em Maya, respeitando as proporções
+          definidas na etapa de referência. Foco em geometria limpa,
+          topologia adequada e escala correta entre os elementos.
+        </p>
+        <div class="step-tools">
+          <span class="tool-tag">Maya</span>
+          <span class="tool-tag">Modelagem orgânica</span>
+          <span class="tool-tag">Topologia</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 – Texturização -->
+    <div class="step">
+      <div class="step-image-wrap" data-label="Cena texturizada">
+        <img class="step-image" src="CENA.png" alt="Cena texturizada">
+      </div>
+      <div class="step-info">
+        <p class="step-number">03</p>
+        <h2 class="step-title">Cena <span>texturizada</span></h2>
+        <p class="step-desc">
+          Aplicação de materiais e texturas com Substance Painter — mapas de cor,
+          roughness, normal e especular. Resultado integrado ao Maya para
+          feedback em tempo real antes do render final.
+        </p>
+        <div class="step-tools">
+          <span class="tool-tag">Substance Painter</span>
+          <span class="tool-tag">PBR</span>
+          <span class="tool-tag">Mapas UV</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 – Pós-produção -->
+    <div class="step reverse">
+      <div class="step-image-wrap" data-label="Cena com pós-produção">
+        <img class="step-image" src="CENA_COM_POS.png" alt="Render com pós-produção">
+      </div>
+      <div class="step-info">
+        <p class="step-number">04</p>
+        <h2 class="step-title">Render &amp; <span>pós</span></h2>
+        <p class="step-desc">
+          Render final em V-Ray com ajustes de iluminação, GI e câmera.
+          Pós-produção no Photoshop — grading de cor, profundidade de campo,
+          ajuste de contraste e composição final para replicar o mood do filme.
+        </p>
+        <div class="step-tools">
+          <span class="tool-tag">V-Ray</span>
+          <span class="tool-tag">Photoshop</span>
+          <span class="tool-tag">Color grading</span>
+          <span class="tool-tag">Compositing</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- FOOTER CTA -->
+<footer class="footer-cta">
+  <h2>Ver mais<br><em>projetos</em></h2>
+  <a href="index.html" class="back-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    Voltar ao portfólio
+  </a>
+</footer>
+
+
+<script>
+  // Scroll reveal para os steps
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.step').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
